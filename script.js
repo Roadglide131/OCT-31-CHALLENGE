@@ -16,10 +16,10 @@ THEN a password is generated that matches the selected criteria
 WHEN the password is generated
 THEN the password is either displayed in an alert or written to the page
 */
-var lowercase = "abcdefghijklmnopqrstuvwxyz";
-var uppercase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-var numbers = "0123456789";
-var symbols = "!@#$%^&*()_+~`|}{[]\:;?><,./-=";
+var lowercase = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+var uppercase = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+var numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
+var symbols = ["!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "-", "_", "=", "+", "[", "]", "{", "}", "|", ";", ":", "'", ",", ".", "<", ">", "/", "?", "~", "`"];
 
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
@@ -42,6 +42,33 @@ function generatePassword() {
   var passwordUppercase = confirm("Would you like to include uppercase letters?");
   var passwordNumbers = confirm("Would you like to include numbers?");
   var passwordSymbols = confirm("Would you like to include symbols?");
+  while(passwordLowercase === false && passwordUppercase === false && passwordNumbers === false && passwordSymbols === false) {
+    alert("You must select at least one character type");
+    var passwordLowercase = confirm("Would you like to include lowercase letters?");
+    var passwordUppercase = confirm("Would you like to include uppercase letters?");
+    var passwordNumbers = confirm("Would you like to include numbers?");
+    var passwordSymbols = confirm("Would you like to include symbols?");
+  }
+
+  var passwordCharacters = [];
+  if (passwordLowercase) {
+    passwordCharacters = passwordCharacters.concat(lowercase);
+  }
+  if (passwordUppercase) {
+    passwordCharacters = passwordCharacters.concat(uppercase);
+  }
+  if (passwordNumbers) {
+    passwordCharacters = passwordCharacters.concat(numbers);
+  }
+  if (passwordSymbols) {
+    passwordCharacters = passwordCharacters.concat(symbols);
+  }
+  var password = "";
+  for (var i = 0; i < passwordLength; i++) {
+    password = password + passwordCharacters[Math.floor(Math.random() * passwordCharacters.length)];
+  }
+  return password;
+
 }
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
