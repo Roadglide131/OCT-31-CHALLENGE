@@ -34,10 +34,14 @@ function writePassword() {
 }
 function generatePassword() {
   var passwordLength = prompt("How many characters would you like your password to be? (8-128)");
-  if (passwordLength < 8 || passwordLength > 128) {
+  while(passwordLength < 8 || passwordLength > 128) {
     alert("Password must be between 8 and 128 characters");
-    return;
+    var passwordLength = prompt("How many characters would you like your password to be? (8-128)");
   }
+  var passwordLowercase = confirm("Would you like to include lowercase letters?");
+  var passwordUppercase = confirm("Would you like to include uppercase letters?");
+  var passwordNumbers = confirm("Would you like to include numbers?");
+  var passwordSymbols = confirm("Would you like to include symbols?");
 }
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
